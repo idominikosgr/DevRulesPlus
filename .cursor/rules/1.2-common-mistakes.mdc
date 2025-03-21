@@ -1,0 +1,29 @@
+---
+description: Common mistakes that AI tends to make repeatedly. If filled out, it will be used by the Developer Assistant to avoid known issues.
+globs:
+alwaysApply: true
+---
+# Common Mistakes
+
+This file documents common mistakes that AI tends to make repeatedly. When populated with actual mistake patterns, the AI should actively check against these patterns to avoid repeating known issues.
+
+## Format: Use [TAGS] for structure; keep entries concise
+Optional tags: [CONTEXT], [EXAMPLE], [REFERENCE], [FRAMEWORK], [VERSION], [LANGUAGE]
+
+## Common Mistake Patterns
+
+### MISTAKE: Outdated Syntax in recent versions
+[PATTERN] AI Tends to use the data it was trained on.
+[SOLUTION] Use live web browsing, verify latest docs for correct imports.
+
+### MISTAKE: Missing Lucide Icon Imports
+[PATTERN] Icons from lucide-react are imported but not all used icons are included in the import list.
+[EXAMPLE] ChevronLeft and ChevronRight used in components but missing from imports.
+[FRAMEWORK] Next.js, React
+[SOLUTION] Always verify all Lucide icons used in the component are included in the imports at the top of the file.
+[REFERENCE] Common error: "Cannot find name 'IconName'".
+
+### MISTAKE: Running development server unnecessarily
+[PATTERN] Automatically running `npm run dev` after making changes to verify them.
+[SOLUTION] Do not run the development server as the user will handle this themselves. Focus only on implementing the requested changes.
+[CONTEXT] The user prefers to control when to run the development server, so avoid running it automatically even after significant changes.

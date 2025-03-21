@@ -1,0 +1,155 @@
+---
+description: Project configuration template to be filled out by the user. If filled out, it will be used by the Developer Assistant when working with specialized modes.
+globs: 
+alwaysApply: true
+---
+# Project Configuration
+
+## Project Information
+- Project Name: UseAgents.io
+- Description: A comprehensive directory and learning platform for AI agent technologies, LLMs.txt implementations, and MCP integrations
+- Repository: https://github.com/TheSethRose/useagents.io
+- Current Version: 1.0.0
+- License: MIT
+
+## Team Information
+- Maintainer: Seth Rose
+- Team Members: N/A (solo project)
+
+## Technical Stack
+- Frontend: Next.js 14, React, TypeScript, TailwindCSS, shadcn/ui
+- Backend: Next.js API routes
+- Database: Prisma ORM with SQLite (dev), PostgreSQL (prod)
+- Authentication: NextAuth.js for user authentication, admin roles
+- Deployment: Vercel
+- Testing: N/A
+
+## Project Structure
+- `/app`: Next.js app router pages and layouts
+- `/components`: Reusable React components
+  - `/ui`: Base UI components from shadcn/ui
+  - `/layout`: Layout components (header, footer)
+  - `/directory`: Components for the various directories
+  - `/auth`: Authentication components
+  - `/cards`: Card components for different views
+- `/lib`: Utility functions and shared code
+- `/public`: Static assets
+- `/prisma`: Database schema and migrations
+- `/docs`: Project documentation
+
+## Data Models
+- DirectoryEntry: Approved entries in the directory
+  - Fields: id, name, category, description, website, github, documentation, tags, compatibility, status, createdAt, updatedAt, submittedBy
+- LlmsTxtEntry: Implementations of the LLMs.txt standard
+  - Fields: id, website, llmsTxt, llmsTxtTokens, llmsFullTxt, llmsFullTxtTokens, category, notes, status
+- McpEntry: MCP server implementations
+  - Fields: id, name, website, github, description, features, compatibility, status
+- User: User accounts for authentication
+  - Fields: id, name, email, emailVerified, image, role
+
+## Project-Specific Guidelines
+- Status flow: Submissions start as "pending", can be changed to "approved" or "rejected" by admins
+- Directory entries must have valid information and links
+- Only approved entries are shown in the public directory
+- Admin users have access to the admin dashboard for managing submissions
+
+## Goals
+- Create a comprehensive platform for AI agent technologies
+- Provide educational resources for implementing LLMs.txt and MCP
+- Build a directory of tools, models, and implementations
+- Foster a community of AI developers and practitioners
+- Maintain data quality through admin approval process
+
+## Project Details
+
+### Basic Information
+- Project Name: UseAgents.io
+- Description: A comprehensive directory and learning platform for AI agent technologies
+- Version: 1.0.0
+- Repository: https://github.com/TheSethRose/useagents.io
+- Website: https://useagents.io
+- License: MIT
+
+### Team Information
+- Owner: Seth Rose
+- Contributors: Seth Rose
+- Contact Email: N/A
+- GitHub Repository: https://github.com/TheSethRose/useagents.io
+- Social Media:
+  - Twitter/X: https://x.com/TheSethRose
+  - LinkedIn: N/A
+  - Facebook: N/A
+  - Instagram: N/A
+  - Discord: N/A
+
+### Technical Stack
+- Frontend: Next.js 15.2.2, React 19, TypeScript, Tailwind CSS
+- Backend: Next.js API Routes
+- Database: Prisma with SQLite
+- Authentication: NextAuth.js v5 with Email Magic Link authentication via Resend
+- Email: Resend for email notifications and authentication
+- Infrastructure: Vercel
+- Other Tools:
+  - UI Components: Radix UI, shadcn/ui
+  - State Management: Zustand
+  - Form Handling: React Hook Form, Zod
+  - Styling: Tailwind CSS, tailwindcss-animate
+  - Icons: Lucide React
+  - Theming: next-themes, nextjs-themes
+  - Utilities: date-fns, uuid
+  - Package Manager: pnpm
+
+### Project-Specific Guidelines
+- Coding Conventions: TypeScript with React functional components
+- Directory Structure:
+  - `/app`: Next.js App Router pages and layouts
+    - `/app/(directory)`: Directory-related pages (llms, models, mcp)
+    - `/app/(learn)`: Learning resources pages (tutorials, documentation)
+    - `/app/(community)`: Community pages (forum, showcase)
+  - `/components`: Reusable UI components
+    - `/components/ui`: UI components from shadcn/ui
+    - `/components/layout`: Layout components like header and footer
+    - `/components/auth`: Authentication-related components
+    - `/components/directory`: Directory-specific components
+    - `/components/cards`: Card components for different views
+    - `/components/learn`: Educational components (tutorial cards, code blocks)
+  - `/hooks`: Custom React hooks
+  - `/lib`: Utility functions, types, and store
+    - `/lib/auth.ts`: NextAuth.js configuration
+    - `/lib/db.ts`: Prisma client initialization
+    - `/lib/store.ts`: Zustand store for state management
+    - `/lib/types.ts`: TypeScript type definitions
+    - `/lib/utils.ts`: Utility functions
+  - `/public`: Static assets
+  - `/prisma`: Prisma schema and migrations
+  - `/docs`: Project documentation
+  - `/scripts`: Utility scripts for data management
+- Naming Conventions:
+  - React components: PascalCase
+  - Functions and variables: camelCase
+  - Files: kebab-case for components, camelCase for utilities
+- Component Patterns: Functional components with hooks
+- State Management: Zustand for global state
+- Authentication: NextAuth.js v5 with Email provider using Resend for email delivery
+- Data Structure: Database with Prisma ORM for directory entries and submissions
+  - DirectoryEntry model for approved entries
+  - Submission model for pending/approved/rejected submissions
+
+### Project Goals
+- Current Milestones:
+  - Build a comprehensive directory of AI agent technologies
+  - Create educational resources for developers
+  - Implement a submission and approval system
+- Future Roadmap:
+  - Add interactive demos for LLMs.txt and MCP
+  - Implement a community forum
+  - Create a rating and review system for directory entries
+  - Add analytics for tracking directory usage
+- Known Issues:
+  - Next.js server errors related to file paths when running in development mode
+
+### Sponsor Information
+- GitHub Sponsors: https://github.com/sponsors/TheSethRose/
+- Personal Website: https://www.sethrose.dev
+
+IMPORTANT: If this file has not been filled out with actual project details (i.e., if the fields above are empty or still contain placeholder text), the Developer Assistant should completely ignore this configuration file and proceed without referencing it.
