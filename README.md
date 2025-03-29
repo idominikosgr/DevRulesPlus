@@ -42,12 +42,24 @@ The rules are organized in `.cursor/rules/` with a clear organizational structur
 
 ## Getting Started
 
-1. Clone this repository
-2. Copy the `.cursor` directory to your project root
-3. Customize the files to match your project needs:
+1. Install DevRules with a single command:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.sh | sh
+```
+
+2. Customize the files to match your project needs:
    - `01-project-context.mdc`: Add your tech stack, project structure, and conventions
    - `02-common-errors.mdc`: Document project-specific pitfalls to avoid
-4. Use with compatible AI development assistants (e.g., Cursor)
+3. Use with compatible AI development assistants (e.g., Cursor)
+
+### Updating
+
+To update only the specialized mode files while preserving your customized core files:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.sh | sh -s -- --upgrade
+```
 
 ## Usage Examples
 
