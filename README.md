@@ -8,44 +8,86 @@ DevRules is a structured set of rule files that help AI tools better understand 
 
 ## Structure
 
-The rules are organized in `.cursor/rules/` with a systematic naming convention:
+The rules are organized in `.cursor/rules/` with a clear organizational structure:
 
-- `1.x` files: Core instructions and project configuration
-- `2.x` files: Specialized modes for specific tasks
+- **Core rules**: Foundation files that define AI behavior and project context
+- **Specialized modes**: Task-specific rule files in subdirectories
 
-## Rule Categories
+```
+.cursor/rules/
+├── 00-core-agent.mdc       # Core AI instructions
+├── 01-project-context.mdc  # Project-specific details
+├── 02-common-errors.mdc    # Common mistakes to avoid
+└── modes/                  # Specialized mode directories
+    ├── analyze/            # Rules for analysis tasks
+    ├── content/            # Rules for documentation/content tasks
+    ├── debug/              # Rules for debugging assistance
+    ├── design/             # Rules for design tasks
+    ├── generate/           # Rules for code generation
+    ├── implement/          # Rules for implementation tasks
+    ├── improve/            # Rules for code improvement
+    ├── planning/           # Rules for planning tasks
+    ├── process/            # Rules for workflow/process tasks
+    ├── review/             # Rules for review tasks
+    └── test/               # Rules for testing tasks
+```
 
-### Core Instructions (1.x)
-- **1.0-instructions.mdc**: Base instructions for AI interactions
-- **1.1-project-configuration.mdc**: Project-specific details template
-- **1.2-common-mistakes.mdc**: Common errors to avoid
+## Key Features
 
-### Specialized Modes (2.x)
-- **Planning**: Rules for project planning and architectural design
-- **Development**: Guidelines for code implementation and review
-- **Maintenance**: Instructions for debugging, refactoring, and optimization
-- **Operations**: Rules for DevOps, documentation, and deployment
+- **Consistent AI assistance** across your entire development workflow
+- **Mode-based expertise** for different development tasks
+- **Project-specific context** for more relevant suggestions
+- **Error prevention** through common mistake documentation
+- **Reduced repetition** of instructions to AI tools
 
-## Usage
+## Getting Started
 
 1. Clone this repository
 2. Copy the `.cursor` directory to your project root
-3. Customize the files to match your project needs, particularly `1.1-project-configuration.mdc`
-4. Use with compatible AI development assistants
+3. Customize the files to match your project needs:
+   - `01-project-context.mdc`: Add your tech stack, project structure, and conventions
+   - `02-common-errors.mdc`: Document project-specific pitfalls to avoid
+4. Use with compatible AI development assistants (e.g., Cursor)
+
+## Usage Examples
+
+### Activating a Specialized Mode
+
+You can explicitly request a specialized mode:
+
+```
+Please help me design a database schema for users and articles.
+```
+
+The AI will detect this is a database design task and enter the appropriate mode.
+
+### Providing Project Context
+
+For new projects, you should update the project context file:
+
+```
+Please update the project context with our React/Node.js stack and component structure.
+```
+
+### Documenting Common Errors
+
+Add project-specific patterns to avoid:
+
+```
+Please add a common error pattern about our naming convention for API routes.
+```
 
 ## Benefits
 
-- Consistent AI assistance across your entire development workflow
+- More accurate code assistance based on your project context
+- Specialized expertise for specific development tasks
+- Consistent response format and quality
 - Reduced need to repeat instructions
-- Better context awareness for AI-generated code and suggestions
-- Specialized expertise for different development tasks
 - Improved code quality and adherence to best practices
 
 ## Customization
 
-For best results, customize the following files:
-- `1.1-project-configuration.mdc`: Add your project details, team structure, tech stack
-- `1.2-common-mistakes.mdc`: Document project-specific pitfalls to avoid
+The rule files use a consistent Markdown format that's easy to customize for your specific needs. See the `DOCUMENTATION.md` file for detailed formatting guidelines.
 
 ## License
 

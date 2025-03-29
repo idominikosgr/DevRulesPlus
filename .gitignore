@@ -63,3 +63,9 @@ yarn-error.log*
 *.temp
 *.swp
 *.swo
+
+# Build outputs
+dist/
+build/
+out/
+.next/

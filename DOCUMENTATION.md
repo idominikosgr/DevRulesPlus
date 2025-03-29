@@ -23,9 +23,9 @@ The main content of the rule, typically including:
 - References to other rules
 ```
 
-## Core Rules (1.x)
+## Core Rules
 
-### 1.0-instructions.mdc
+### 00-core-agent.mdc
 
 This is the primary instruction file that defines:
 - The AI's persona and expertise
@@ -36,64 +36,108 @@ This is the primary instruction file that defines:
 
 This file is loaded on every interaction and serves as the foundation for all AI behavior.
 
-### 1.1-project-configuration.mdc
+### 01-project-context.mdc
 
 A template for project-specific information:
 - Project name, description, and repository
-- Team structure and roles
 - Technical stack details
 - Project structure
-- Data models
-- Project-specific guidelines and goals
+- Coding conventions and standards
+- Key abstractions and patterns
+- Important constraints or notes
 
 This file should be customized for each project.
 
-### 1.2-common-mistakes.mdc
+### 02-common-errors.mdc
 
 Documents frequent errors to avoid:
-- Format: `[PATTERN]`, `[SOLUTION]`, optional tags
+- Format: `[PATTERN]`, `[BAD_EXAMPLE]`, `[GOOD_EXAMPLE]`, `[SOLUTION/RULE]`
 - Common syntactic or semantic errors
 - Outdated patterns or practices
 - Project-specific pitfalls
 
-## Specialized Mode Rules (2.x)
+## Specialized Mode Rules
 
-These rules define specific "modes" that the AI can enter for specialized tasks:
+These rules define specific "modes" that the AI can enter for specialized tasks and are organized in the `modes/` directory:
 
-### Planning (2.1, 2.2, 2.3, 2.4)
-- **2.1-planner.mdc**: General project planning
-- **2.2-prd-analyst.mdc**: Product requirements analysis
-- **2.3-architect.mdc**: System architecture design
-- **2.4-database-design.mdc**: Database schema planning
+### Planning
+- **planning-task.mdc**: Breaking down tasks into implementation steps
+- **planning-requirements.mdc**: Requirements analysis
+- **planning-estimation.mdc**: Task effort estimation
 
-### Development (2.5, 2.6, 2.14)
-- **2.5-ui-frontend.mdc**: Frontend and UI development
-- **2.6-code-review.mdc**: Code review standards
-- **2.14-api-design.mdc**: API design and implementation
+### Design
+- **design-architecture.mdc**: System architecture design
+- **design-database.mdc**: Database schema design
+- **design-api.mdc**: API design
+- **design-interfaces.mdc**: Interface design
+- **design-data-migration.mdc**: Data migration planning
+- **design-caching.mdc**: Caching strategy design
 
-### Maintenance (2.7, 2.8, 2.9, 2.10)
-- **2.7-refactoring.mdc**: Code refactoring guidelines
-- **2.8-security-auditor.mdc**: Security auditing procedures
-- **2.9-performance-optimization.mdc**: Performance improvement strategies
-- **2.10-debug.mdc**: Debugging methodologies
+### Implementation
+- **implement-ui.mdc**: UI/frontend implementation
+- **implement-logic.mdc**: Business logic implementation
+- **implement-integration.mdc**: Integration implementation
 
-### Operations (2.11, 2.12, 2.13)
-- **2.11-documentation.mdc**: Documentation standards
-- **2.12-devops.mdc**: DevOps procedures
-- **2.13-github.mdc**: GitHub workflow management
+### Review
+- **review-code.mdc**: Code review guidelines
+- **review-security.mdc**: Security review procedures
+- **review-seo.mdc**: SEO assessment
+- **review-accessibility.mdc**: Accessibility auditing
+- **review-architecture.mdc**: Architecture review
+- **review-compliance.mdc**: Compliance evaluation
+
+### Improvement
+- **improve-refactor.mdc**: Code refactoring guidelines
+- **improve-performance.mdc**: Performance optimization
+- **improve-scalability.mdc**: Scalability improvements
+- **improve-maintainability.mdc**: Maintainability enhancements
+
+### Debugging
+- **debug-code.mdc**: Code debugging strategies
+- **debug-performance.mdc**: Performance issue diagnosis
+- **debug-integration.mdc**: Integration problem debugging
+
+### Testing
+- **test-plan.mdc**: Test planning
+- **test-write.mdc**: Test implementation
+- **test-analyze-coverage.mdc**: Test coverage analysis
+
+### Process
+- **process-devops.mdc**: DevOps procedures
+- **process-git.mdc**: Git workflow management
+- **process-release.mdc**: Release process
+- **process-onboarding.mdc**: Developer onboarding
+
+### Content
+- **content-documentation.mdc**: Documentation standards
+- **content-general.mdc**: General content creation
+- **content-api-docs.mdc**: API documentation
+- **content-user-guide.mdc**: User guides
+- **content-technical-blog.mdc**: Technical writing
+
+### Analysis
+- **analyze-data.mdc**: Data analysis
+- **analyze-logs.mdc**: Log file analysis
+- **analyze-dependencies.mdc**: Dependency analysis
+
+### Generation
+- **generate-boilerplate.mdc**: Boilerplate code generation
+- **generate-config.mdc**: Configuration generation
+- **generate-types.mdc**: Type definition generation
 
 ## Using Mode Transitions
 
 Mode transitions are marked in the AI's response with:
 
 ```
-#### [Entering X Mode]
+### [Current Mode Name]
+---
 ```
 
 This signals a shift in approach and expertise. Modes can be requested directly:
 
 ```
-Please enter Architect Mode to help design this system.
+Please help me design the database schema for this project.
 ```
 
 Or they may be activated automatically when the AI detects a need for specialized expertise.
@@ -102,14 +146,16 @@ Or they may be activated automatically when the AI detects a need for specialize
 
 To customize these rules for your project:
 
-1. Update `1.1-project-configuration.mdc` with your project details
-2. Add project-specific patterns to `1.2-common-mistakes.mdc`
+1. Update `01-project-context.mdc` with your project details
+2. Add project-specific patterns to `02-common-errors.mdc`
 3. Adjust specialized mode rules to match your development workflows
 4. Add new rules as needed for your specific use cases
 
 ## Best Practices
 
-- Keep rules concise and focused
+- Keep rules concise and focused on specific guidance
 - Use specific examples rather than general principles
 - Update rules as your project evolves
-- Add documentation for custom rules
+- Use progressive disclosure in rules (start with the most important information)
+- Structure information with clear headings and lists
+- Include context for why certain patterns are recommended
