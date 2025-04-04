@@ -101,9 +101,36 @@ Please add a common error pattern about our naming convention for API routes.
 
 The rule files use a consistent Markdown format that's easy to customize for your specific needs. See the `DOCUMENTATION.md` file for detailed formatting guidelines.
 
+## Contributing
+
+Contributions to DevRules are welcome and appreciated! You can help improve this project in various ways:
+
+- Adjustments to existing rule files
+- Grammar and documentation fixes
+- Best practice adjustments or enhancements
+- New specialized modes
+- Structural reorganization
+- Bug fixes
+
+### Contribution Guidelines
+
+1. **Fork and clone** the repository
+2. **Create a feature branch** for your changes
+3. **Make your changes** following the existing style and format
+4. **Test extensively** before submitting:
+   - Verify the rules work with compatible AI tools (e.g., Cursor)
+   - Test different scenarios and edge cases
+   - Document your testing process
+5. **Submit a pull request** with:
+   - Clear description of changes
+   - Evidence of testing (screenshots, examples, etc.)
+   - Any relevant documentation updates
+
+Please ensure any new modes or significant changes have been thoroughly tested in real-world development scenarios. Include examples of AI responses that demonstrate your changes are working as expected.
+
 ## License
 
-MIT
+[MIT](LICENSE)
 
 ---
 
