@@ -75,5 +75,5 @@ alwaysApply: true
 -
 
 ---
-NOTE TO AI: If this file is largely empty, rely primarily on analyzing the codebase directly for context. You may politely prompt the user to fill out relevant sections if it would significantly improve assistance for a specific task.
+NOTE TO AI: Remove this line, once project-context is filled out. If this file is largely empty, rely primarily on analyzing the codebase directly for context. You may politely prompt the user to fill out relevant sections if it would significantly improve assistance for a specific task.
 ---

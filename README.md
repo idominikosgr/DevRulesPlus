@@ -10,32 +10,26 @@ DevRules is a structured set of rule files that help AI tools better understand 
 
 The rules are organized in `.cursor/rules/` with a clear organizational structure:
 
-- **Core rules**: Foundation files that define AI behavior and project context
-- **Specialized modes**: Task-specific rule files in subdirectories
+- **Core rules**: Foundation files that define AI behavior and project context (`00-*`, `01-*`, `02-*`).
+- **Specialized modes**: Task-specific rule files located directly within the `modes/` directory.
+- **Language rules**: Best practices and patterns for specific programming languages in the `languages/` directory.
 
 ```
 .cursor/rules/
 ├── 00-core-agent.mdc       # Core AI instructions
-├── 01-project-context.mdc  # Project-specific details
-├── 02-common-errors.mdc    # Common mistakes to avoid
-└── modes/                  # Specialized mode directories
-    ├── analyze/            # Rules for analysis tasks
-    ├── content/            # Rules for documentation/content tasks
-    ├── debug/              # Rules for debugging assistance
-    ├── design/             # Rules for design tasks
-    ├── generate/           # Rules for code generation
-    ├── implement/          # Rules for implementation tasks
-    ├── improve/            # Rules for code improvement
-    ├── planning/           # Rules for planning tasks
-    ├── process/            # Rules for workflow/process tasks
-    ├── review/             # Rules for review tasks
-    └── test/               # Rules for testing tasks
+├── 01-project-context.mdc  # Project-specific details (customize!)
+├── 02-common-errors.mdc    # Common mistakes to avoid (customize!)
+├── modes/                  # Task-specific mode rules (e.g., Refactor-Code.mdc)
+│   └── ...
+└── languages/              # Language-specific best practices (e.g., Python3.mdc)
+    └── ...
 ```
 
 ## Key Features
 
 - **Consistent AI assistance** across your entire development workflow
 - **Mode-based expertise** for different development tasks
+- **Language-specific guidance** for coding best practices
 - **Project-specific context** for more relevant suggestions
 - **Error prevention** through common mistake documentation
 - **Reduced repetition** of instructions to AI tools
@@ -48,14 +42,14 @@ The rules are organized in `.cursor/rules/` with a clear organizational structur
 curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.sh | sh
 ```
 
-2. Customize the files to match your project needs:
-   - `01-project-context.mdc`: Add your tech stack, project structure, and conventions
-   - `02-common-errors.mdc`: Document project-specific pitfalls to avoid
-3. Use with compatible AI development assistants (e.g., Cursor)
+2. Customize the core files to match your project needs:
+   - `01-project-context.mdc`: Add your tech stack, project structure, and conventions.
+   - `02-common-errors.mdc`: Document project-specific pitfalls to avoid.
+3. Use with compatible AI development assistants (e.g., Cursor).
 
 ### Updating
 
-To update only the specialized mode files while preserving your customized core files:
+To update the standard `modes/` and `languages/` rules while preserving your customized core files (`00-*`, `01-*`, `02-*`):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.sh | sh -s -- --upgrade

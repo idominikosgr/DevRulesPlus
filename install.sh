@@ -1,8 +1,8 @@
 #!/bin/sh
 # DevRules Installer
 # A universal shell script to install DevRules into any project
-# Usage: curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install-devrules.sh | sh
-# or: curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install-devrules.sh | sh -s -- --upgrade
+# Usage: curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.sh | sh
+# or: curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.sh | sh -s -- --upgrade
 
 set -e
 
@@ -37,17 +37,17 @@ while [ "$#" -gt 0 ]; do
       ;;
     --upgrade|--update)
       UPGRADE=true
-      echo "⬆️ Upgrade mode: Will preserve core files and update mode files"
+      echo "⬆️ Upgrade mode: Will preserve core files (00-*, 01-*, 02-*) and update modes/ and languages/ directories"
       ;;
     --help)
-      echo "Usage: ./install-devrules.sh [options]"
+      echo "Usage: ./install.sh [options]"
       echo ""
       echo "Options:"
       echo "  --target=DIR     Install rules to this directory (default: .cursor/rules)"
       echo "  --repo=URL       Use this repository URL (default: https://github.com/TheSethRose/DevRules)"
       echo "  --branch=BRANCH  Use this branch (default: main)"
       echo "  --method=METHOD  Download method: git or curl (default: git)"
-      echo "  --upgrade        Preserve core files (00-*.mdc, 01-*.mdc, 02-*.mdc) and only update mode files"
+      echo "  --upgrade        Preserve core files (00-*.mdc, 01-*.mdc, 02-*.mdc) and only update modes/ and languages/ directories"
       echo "  --help           Show this help message"
       exit 0
       ;;
@@ -124,13 +124,30 @@ fi
 mkdir -p "$TARGET_DIR"
 
 if [ "$UPGRADE" = true ]; then
-  echo "Upgrading mode files while preserving core files..."
+  echo "Upgrading mode and language files while preserving core files..."
 
-  # Copy only the modes directory, preserving your core files
+  # Remove existing modes and languages directories in the target
+  echo "Removing existing modes/ and languages/ directories in $TARGET_DIR..."
   rm -rf "$TARGET_DIR/modes"
-  cp -r "$TEMP_DIR/repo/.cursor/rules/modes" "$TARGET_DIR/"
+  rm -rf "$TARGET_DIR/languages"
 
-  echo "✅ Mode files updated successfully!"
+  # Copy new modes directory if it exists in the repo
+  if [ -d "$TEMP_DIR/repo/.cursor/rules/modes" ]; then
+    echo "Copying new modes/ directory..."
+    cp -r "$TEMP_DIR/repo/.cursor/rules/modes" "$TARGET_DIR/"
+  else
+    echo "Warning: modes/ directory not found in the repository source. Skipping."
+  fi
+
+  # Copy new languages directory if it exists in the repo
+  if [ -d "$TEMP_DIR/repo/.cursor/rules/languages" ]; then
+    echo "Copying new languages/ directory..."
+    cp -r "$TEMP_DIR/repo/.cursor/rules/languages" "$TARGET_DIR/"
+  else
+    echo "Warning: languages/ directory not found in the repository source. Skipping."
+  fi
+
+  echo "✅ Mode and language files updated successfully!"
 else
   # Check if target directory already has files that would be overwritten
   if [ -d "$TARGET_DIR" ] && [ "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
@@ -165,5 +182,5 @@ echo "2. Add project-specific anti-patterns to 02-common-errors.mdc"
 echo "3. Start using the specialized modes in your development"
 echo ""
 echo "For updates, run:"
-echo "curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install-devrules.sh | sh -s -- --upgrade"
+echo "curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.sh | sh -s -- --upgrade"
 echo "====================================="
