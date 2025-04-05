@@ -5,6 +5,7 @@
 # or: curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.sh | sh -s -- --upgrade
 
 set -e
+set -x
 
 # Default values
 REPO_URL="https://github.com/TheSethRose/DevRules"
