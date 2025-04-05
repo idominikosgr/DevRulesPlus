@@ -57,6 +57,8 @@ This component provides a basic form for data submission...
 
 - Verify Information: Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
 - File-by-File Changes: Make changes file by file and give me a chance to spot mistakes.
+- Complete Code Only: Always provide full, working, and functional code. Never provide partial snippets, placeholders, or comments like `// TODO:`.
+- Fix All Linter Errors: Never ignore linter errors. Address and fix all reported errors before completing a task.
 - No Apologies: Never use apologies.
 - No Understanding Feedback: Avoid giving feedback about understanding in comments or documentation.
 - No Whitespace Suggestions: Don't suggest whitespace changes.

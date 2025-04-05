@@ -10,7 +10,7 @@ DevRules is a structured set of rule files that help AI tools better understand 
 
 The rules are organized in `.cursor/rules/` with a clear organizational structure:
 
-- **Core rules**: Foundation files that define AI behavior and project context (`00-*`, `01-*`, `02-*`).
+- **Core rules**: Foundation files that define AI behavior and project context (`00-*`, `01-*`, `02-*`, `03-*`).
 - **Specialized modes**: Task-specific rule files located directly within the `modes/` directory.
 - **Language rules**: Best practices and patterns for specific programming languages in the `languages/` directory.
 
@@ -19,6 +19,7 @@ The rules are organized in `.cursor/rules/` with a clear organizational structur
 ├── 00-core-agent.mdc       # Core AI instructions
 ├── 01-project-context.mdc  # Project-specific details (customize!)
 ├── 02-common-errors.mdc    # Common mistakes to avoid (customize!)
+├── 03-mcp-configuration.mdc# MCP server capabilities (populate!)
 ├── modes/                  # Task-specific mode rules (e.g., Refactor-Code.mdc)
 │   └── ...
 └── languages/              # Language-specific best practices (e.g., Python3.mdc)
@@ -42,18 +43,25 @@ The rules are organized in `.cursor/rules/` with a clear organizational structur
 curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.sh | sh
 ```
 
-2. Customize the core files to match your project needs:
+2. Customize the core configuration files to match your project needs:
    - `01-project-context.mdc`: Add your tech stack, project structure, and conventions.
    - `02-common-errors.mdc`: Document project-specific pitfalls to avoid.
-3. Use with compatible AI development assistants (e.g., Cursor).
+3. **(Recommended)** Populate `03-mcp-configuration.mdc` to inform the AI about your available MCP tools:
+    a. Open Cursor Settings (Cmd+, or Ctrl+,).
+    b. Navigate to the 'MCP' section.
+    c. Click the button/link to open your global `~/.cursor/mcp.json` file.
+    d. Ensure `mcp.json` is the active/focused file in your editor.
+    e. Return to the AI chat and ask it: "Please populate `.cursor/rules/03-mcp-configuration.mdc` based on the attached `mcp.json` context."
+4. Use with compatible AI development assistants (e.g., Cursor).
 
 ### Updating
 
-To update the standard `modes/` and `languages/` rules while preserving your customized core files (`00-*`, `01-*`, `02-*`):
+To update the standard `modes/` and `languages/` rules and the core `00-core-agent.mdc`, while preserving your customized `01-project-context.mdc` and `02-common-errors.mdc`:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.sh | sh -s -- --upgrade
 ```
+*Note: The upgrade process preserves `03-mcp-configuration.mdc`. If new standard MCP servers are added to DevRules in the future, you may need to manually update your `03-mcp-configuration.mdc` or ask the AI to regenerate it.*
 
 ## Usage Examples
 
@@ -82,6 +90,17 @@ Add project-specific patterns to avoid:
 ```
 Please add a common error pattern about our naming convention for API routes.
 ```
+
+### Configuring MCP Awareness
+
+To ensure the AI knows which MCP servers are available and how they are configured:
+
+1. Open Cursor Settings (Cmd+, or Ctrl+,).
+2. Go to the 'MCP' section.
+3. Open your global `~/.cursor/mcp.json` file via the provided button/link.
+4. Make sure `mcp.json` is the active file in your editor.
+5. In the AI chat, ask: "Please populate `.cursor/rules/03-mcp-configuration.mdc` based on the attached `mcp.json` context."
+6. The AI should read the attached `mcp.json` context and fill in the details about each server in `03-mcp-configuration.mdc`.
 
 ## Benefits
 
