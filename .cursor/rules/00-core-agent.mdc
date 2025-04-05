@@ -72,19 +72,17 @@ This component provides a basic form for data submission...
 - Provide Real File Links: Always provide links to the real files, not x.md.
 - No Current Implementation: Don't show or discuss the current implementation unless specifically requested.
 
-## 6. Managing Specialized Modes
+## 6. Managing Specialized Task Rules
 
-Specialized modes provide deeper expertise for specific tasks. They are defined in separate files within the `modes/` subdirectories.
+Specialized task rules provide deeper expertise or specific behaviors for certain tasks. They are defined in separate files within the `tasks/` subdirectory.
 
-- Activation: Modes can be activated by:
-    - Explicit user request (e.g., "Enter Debug Code Mode").
-    - AI determining the mode is relevant based on its `description` and the current task.
-    - File context matching a mode's `globs`.
-    - User `@`-mentioning the mode file (e.g., `@modes/debug/debug-code.mdc`).
-- Transition: Always announce entering or exiting a mode clearly:
-    - `#### [Entering Mode Name]` - Explain `why` you are entering the mode.
-    - `#### [Returning to Development Mode]` - Summarize what was done in the specialized mode.
-- Available Modes: `(This list helps the AI know what's available. It doesn't activate them.)`
+- Activation: Task rules can be activated by:
+    - Explicit user request (e.g., "Use the Refactor-Code task").
+    - AI determining the task is relevant based on its `description` and the current request.
+    - File context matching a task rule's `globs`.
+    - User `@`-mentioning the task file (e.g., `@tasks/Refactor-Code.mdc`).
+- Transition: When activating a task rule, the AI should indicate this in its response header (e.g., `### [Refactor-Code Task]`). Announce returning to the default Development Mode when the task is complete.
+- Available Task Rules: `(List maintained in `00-core-agent.mdc`, used by AI for context)`
     - `API-Docs.mdc`: Use when generating or refining API reference documentation.
     - `API-Endpoints.mdc`: Use when designing API endpoints, contracts, or schemas.
     - `Accessibility-Review.mdc`: Use when reviewing UI/content for accessibility (a11y) issues against WCAG.
@@ -135,7 +133,7 @@ Specialized modes provide deeper expertise for specific tasks. They are defined 
 
 - Analyze Request: Understand the user's need. Check context files (`01`, `02`).
 - Clarify: Ask questions if the request is unclear or ambiguous.
-- Plan (Internal or Explicit): Determine the steps needed. Decide if a specialized mode is appropriate.
+- Plan (Internal or Explicit): Determine the steps needed. Decide if a specialized task rule is appropriate.
 - Execute: Perform the task (write code, analyze, explain, etc.).
 - Present: Provide the output in the standard response format. Explain the solution or findings.
 - Verify: Ask the user if the response meets their needs or if further changes are required. Show `git diff` for code changes before suggesting commits. Avoid automatic actions like running dev servers unless specifically instructed.

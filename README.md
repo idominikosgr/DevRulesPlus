@@ -11,8 +11,9 @@ DevRules is a structured set of rule files that help AI tools better understand 
 The rules are organized in `.cursor/rules/` with a clear organizational structure:
 
 - **Core rules**: Foundation files that define AI behavior and project context (`00-*`, `01-*`, `02-*`, `03-*`).
-- **Specialized modes**: Task-specific rule files located directly within the `modes/` directory.
+- **Tasks (`tasks/`)**: Task-specific rules defining specialized AI behaviors (e.g., `Refactor-Code.mdc`).
 - **Language rules**: Best practices and patterns for specific programming languages in the `languages/` directory.
+- **Technology rules**: Best practices for specific frameworks, libraries, or tools in the `technologies/` directory.
 
 ```
 .cursor/rules/
@@ -20,17 +21,20 @@ The rules are organized in `.cursor/rules/` with a clear organizational structur
 ├── 01-project-context.mdc  # Project-specific details (customize!)
 ├── 02-common-errors.mdc    # Common mistakes to avoid (customize!)
 ├── 03-mcp-configuration.mdc# MCP server capabilities (populate!)
-├── modes/                  # Task-specific mode rules (e.g., Refactor-Code.mdc)
+├── tasks/                  # Task-specific behavior rules (e.g., Refactor-Code.mdc)
 │   └── ...
-└── languages/              # Language-specific best practices (e.g., Python3.mdc)
+├── languages/              # Language-specific best practices (e.g., Python3.mdc)
+│   └── ...
+└── technologies/           # Framework/library rules (e.g., React19.mdc, NodeExpress.mdc)
     └── ...
 ```
 
 ## Key Features
 
 - **Consistent AI assistance** across your entire development workflow
-- **Mode-based expertise** for different development tasks
+- **Task-specific guidance** for different development activities
 - **Language-specific guidance** for coding best practices
+- **Technology-specific guidance** for frameworks and libraries
 - **Project-specific context** for more relevant suggestions
 - **Error prevention** through common mistake documentation
 - **Reduced repetition** of instructions to AI tools
@@ -56,7 +60,7 @@ curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.s
 
 ### Updating
 
-To update the standard `modes/` and `languages/` rules and the core `00-core-agent.mdc`, while preserving your customized `01-project-context.mdc` and `02-common-errors.mdc`:
+To update the standard `tasks/`, `languages/`, `technologies/` rules and the core `00-core-agent.mdc`, while preserving your customized `01-project-context.mdc` and `02-common-errors.mdc`:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.sh | sh -s -- --upgrade
@@ -65,15 +69,15 @@ curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.s
 
 ## Usage Examples
 
-### Activating a Specialized Mode
+### Activating a Task Rule
 
-You can explicitly request a specialized mode:
+You can explicitly request a specific task rule:
 
 ```
-Please help me design a database schema for users and articles.
+Please refactor this code using @tasks/Refactor-Code.mdc
 ```
 
-The AI will detect this is a database design task and enter the appropriate mode.
+Or the AI might activate a task rule semantically based on your request.
 
 ### Providing Project Context
 
@@ -105,14 +109,14 @@ To ensure the AI knows which MCP servers are available and how they are configur
 ## Benefits
 
 - More accurate code assistance based on your project context
-- Specialized expertise for specific development tasks
+- Task-specific guidance for different development activities
 - Consistent response format and quality
 - Reduced need to repeat instructions
 - Improved code quality and adherence to best practices
 
 ## Customization
 
-The rule files use a consistent Markdown format that's easy to customize for your specific needs. See the `DOCUMENTATION.md` file for detailed formatting guidelines.
+The rule files use a consistent Markdown format that's easy to customize for your specific needs. See the `Cursor-Rules.md` file at the project root for detailed formatting guidelines and best practices.
 
 ## Contributing
 
@@ -121,7 +125,7 @@ Contributions to DevRules are welcome and appreciated! You can help improve this
 - Adjustments to existing rule files
 - Grammar and documentation fixes
 - Best practice adjustments or enhancements
-- New specialized modes
+- New task rules
 - Structural reorganization
 - Bug fixes
 

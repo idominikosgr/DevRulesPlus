@@ -38,7 +38,7 @@ while [ "$#" -gt 0 ]; do
       ;;
     --upgrade|--update)
       UPGRADE=true
-      echo "⬆️ Upgrade mode: Will preserve 01-* and 02-* files, but update 00-core-agent.mdc, modes/, and languages/ directories"
+      echo "⬆️ Upgrade mode: Will preserve 01-* and 02-* files, but update 00-*, modes/, languages/, and technologies/ directories"
       ;;
     --help)
       echo "Usage: ./install.sh [options]"
@@ -48,7 +48,7 @@ while [ "$#" -gt 0 ]; do
       echo "  --repo=URL       Use this repository URL (default: https://github.com/TheSethRose/DevRules)"
       echo "  --branch=BRANCH  Use this branch (default: main)"
       echo "  --method=METHOD  Download method: git or curl (default: git)"
-      echo "  --upgrade        Preserve core files (01-*.mdc, 02-*.mdc) but update 00-core-agent.mdc, modes/, and languages/ directories"
+      echo "  --upgrade        Preserve 01-* and 02-* files, but update 00-*, modes/, languages/, and technologies/ directories"
       echo "  --help           Show this help message"
       exit 0
       ;;
@@ -125,12 +125,13 @@ fi
 mkdir -p "$TARGET_DIR"
 
 if [ "$UPGRADE" = true ]; then
-  echo "Upgrading 00-core-agent.mdc, modes/, and languages/ while preserving 01-* and 02-* files..."
+  echo "Upgrading 00-*, modes/, languages/, and technologies/ while preserving 01-* and 02-* files..."
 
-  # Remove existing modes and languages directories in the target
-  echo "Removing existing modes/ and languages/ directories in $TARGET_DIR..."
+  # Remove existing modes, languages, and technologies directories in the target
+  echo "Removing existing modes/, languages/, and technologies/ directories in $TARGET_DIR..."
   rm -rf "$TARGET_DIR/modes"
   rm -rf "$TARGET_DIR/languages"
+  rm -rf "$TARGET_DIR/technologies"
 
   # Copy new modes directory if it exists in the repo
   if [ -d "$TEMP_DIR/repo/.cursor/rules/modes" ]; then
@@ -148,17 +149,25 @@ if [ "$UPGRADE" = true ]; then
     echo "Warning: languages/ directory not found in the repository source. Skipping."
   fi
 
-  # Copy the new 00-core-agent.mdc file
-  if [ -f "$TEMP_DIR/repo/.cursor/rules/00-core-agent.mdc" ]; then
-      echo "Copying new 00-core-agent.mdc..."
-      # Remove existing before copying, just in case cp has issues overwriting
-      rm -f "$TARGET_DIR/00-core-agent.mdc"
-      cp "$TEMP_DIR/repo/.cursor/rules/00-core-agent.mdc" "$TARGET_DIR/"
+  # Copy new technologies directory if it exists in the repo
+  if [ -d "$TEMP_DIR/repo/.cursor/rules/technologies" ]; then
+    echo "Copying new technologies/ directory..."
+    cp -r "$TEMP_DIR/repo/.cursor/rules/technologies" "$TARGET_DIR/"
   else
-      echo "Warning: 00-core-agent.mdc not found in the repository source. Skipping update for this file."
+    echo "Warning: technologies/ directory not found in the repository source. Skipping."
   fi
 
-  echo "✅ Core agent, mode, and language files updated successfully!"
+  # Copy the new 00-core-agent.mdc file
+  if [ -f "$TEMP_DIR/repo/.cursor/rules/00-core-agent.mdc" ]; then
+    echo "Copying new 00-core-agent.mdc..."
+    # Remove existing before copying, just in case cp has issues overwriting
+    rm -f "$TARGET_DIR/00-core-agent.mdc"
+    cp "$TEMP_DIR/repo/.cursor/rules/00-core-agent.mdc" "$TARGET_DIR/"
+  else
+    echo "Warning: 00-core-agent.mdc not found in the repository source. Skipping update for this file."
+  fi
+
+  echo "✅ Core agent, mode, language, and technology files updated successfully!"
 else
   # Check if target directory already has files that would be overwritten
   if [ -d "$TARGET_DIR" ] && [ "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
