@@ -98,7 +98,7 @@ cd DevRulesPlus
 node setup-wizard.js
 ```
 
-3. Follow the interactive prompts to configure AIDevRules for your project:
+3. Follow the interactive prompts to configure DevRulesPlus for your project:
    - Enter your project path
    - Select your IDE or AI coding tool (Cursor AI, Windsurf, GitHub Copilot, VS Code, etc.)
    - Choose your primary framework
@@ -127,7 +127,7 @@ git clone https://github.com/idominikosgr/DevRulesPlus.git .cursor
 
 ### For Cursor AI Users
 
-AIDevRules will be automatically loaded when you use Cursor AI in a project containing these rules.
+DevRulesPlus will be automatically loaded when you use Cursor AI in a project containing these rules.
 
 ### For GitHub Copilot Users
 
@@ -200,7 +200,7 @@ curl -fsSL https://raw.githubusercontent.com/idominikosgr/DevRulesPlus/main/inst
 
 ## Contributing
 
-Contributions to AIDevRules are welcome and appreciated! You can help improve this project in various ways:
+Contributions to DevRulesPlus are welcome and appreciated! You can help improve this project in various ways:
 
 1. **Fork and clone** the repository
 2. **Create a feature branch** for your changes (`git checkout -b feature/amazing-feature`)
