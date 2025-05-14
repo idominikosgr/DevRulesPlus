@@ -1,29 +1,32 @@
-# Cursor Rules Documentation Overview
+# DevRulesPlus Documentation Overview
 
-This project utilizes Cursor's **Project Rules** system, storing a structured set of AI prompting rules in the `.cursor/rules/` directory. These rules enhance the capabilities and consistency of AI assistants (like Cursor) working within this codebase.
-
-Reference: <https://docs.cursor.com/context/rules-for-ai>
+This project implements an enhanced rules system for AI-assisted development, storing a structured set of prompting rules in the `.ai/rules/` directory. These rules enhance the capabilities and consistency of various AI assistants working within codebases across different platforms and IDEs.
 
 ## Purpose
 
-These Project Rules provide context, guidelines, and specific instructions to the AI, helping it understand:
+DevRulesPlus provides context, guidelines, and specific instructions to various AI assistants, helping them understand:
 
-- Project-specific configurations (tech stack, file structure, conventions) via `01-project-context.mdc`.
-- Common errors or anti-patterns to avoid via `02-common-errors.mdc`.
-- How to perform specialized tasks (debugging, refactoring, etc.) using defined rules in the **Tasks** directory.
-- Best practices for specific **Languages** or **Technologies** used in the project.
-- Available **MCP** (Model Context Protocol) servers and their usage via `03-mcp-configuration.mdc`.
+- Project-specific configurations (tech stack, file structure, conventions) via `01-project-context.mdc`
+- Common errors or anti-patterns to avoid via `02-common-errors.mdc`
+- How to perform 51 specialized tasks (debugging, refactoring, session handoff, etc.) using defined rules in the **Tasks** directory
+- Best practices for specific **Languages** or **Technologies** used in the project
+- Assistant-specific configurations via the **Assistants** directory
+- AI tool enhancements via the **AI-Tools** directory
+- Available **MCP** (Model Context Protocol) servers and their usage via `03-mcp-configuration.mdc`
+- Memory management and session continuity protocols
 
-By using these rules, we aim for more accurate, relevant, and efficient AI assistance tailored to this project's needs.
+By using DevRulesPlus, developers can achieve more accurate, relevant, and efficient AI assistance tailored to their specific project needs across multiple AI platforms and IDEs.
 
-## Project Rules Structure (`.cursor/rules/`)
+## Project Rules Structure (`.ai/rules/`)
 
-The `.cursor/rules/` directory contains:
+The `.ai/rules/` directory contains:
 
-- **Core Rules (`00-*`, `01-*`, `02-*`, `03-*`):** Foundational rules defining the AI's core behavior, project context, common errors, and MCP configuration.
-- **Tasks (`tasks/`)**: Rules defining specific behaviors or workflows for particular development activities (e.g., `Refactor-Code.mdc`).
-- **Languages (`languages/`):** Rules defining best practices for specific programming languages (e.g., `Python3.mdc`).
-- **Technologies (`technologies/`):** Rules defining best practices for specific frameworks, libraries, or platforms (e.g., `React19.mdc`).
+- **Core Rules (`00-*`, `01-*`, `02-*`, etc.):** Foundational rules defining the AI's core behavior, project context, and common errors
+- **Tasks (`tasks/`)**: 51 rules defining specific behaviors or workflows for particular development activities (e.g., `AI-Session-Handoff.mdc`, `Code-Quality-Review.mdc`)
+- **Assistants (`assistants/`)**: Rules specific to various AI assistants (e.g., `Windsurf.mdc`)
+- **Languages (`languages/`):** Rules defining best practices for specific programming languages (e.g., `Swift.mdc`, `TypeScript.mdc`)
+- **Technologies (`technologies/`):** Rules defining best practices for specific frameworks, libraries, or platforms (e.g., `SwiftUI.mdc`, `GraphQL.mdc`)
+- **AI Tools (`ai-tools/`)**: Guides for AI-enhanced development (e.g., `Agentic-AI-Development.mdc`, `Sequential-Thinking-Advanced.mdc`)
 
 ## Rule File Format (`.mdc` Files)
 
@@ -64,30 +67,37 @@ Project Rules can be activated:
 
 ## Creating New Rules
 
-There are two primary ways to create new project rules:
+There are several ways to create new project rules in DevRulesPlus:
 
-1.  **Cursor Command Palette:** Use `Cmd + Shift + P` (or `Ctrl + Shift + P`) and search for `New Cursor Rule`.
-2.  **AI Assistance (This Project):** Use the dedicated task rule by asking the AI: `@tasks/Create-Cursor-Rule.mdc`. This rule helps ensure the new rule follows the project's established format.
+1. **Interactive Setup Wizard:** Use the provided setup wizard to create properly structured rule files
+2. **AI Assistance:** Use the dedicated task rule by asking the AI: `@tasks/Create-Cursor-Rule.mdc` 
+3. **Manual Creation:** Follow the established format to create new .mdc files in the appropriate directories
 
 ## Best Practices for Writing Rules
 
-- **Be Specific:** Provide concrete examples and actionable instructions rather than general principles.
-- **Keep Concise:** Focus rules on a specific topic or task. Avoid overly long or complex rules.
-- **Use Clear Structure:** Employ Markdown headings and lists to organize information logically.
-- **Consider Context:** Write rules with the assumption that the AI might have limited context. Provide necessary background or link to it using `@` references.
-- **Leverage `globs`:** Use `globs` effectively to ensure rules are automatically considered when relevant files are open.
-- **Refine `description`:** Write clear, concise descriptions to aid semantic activation.
-- **Test and Iterate:** Review how the AI uses your rules and refine them based on its behavior.
-- **Maintain Consistency:** Follow the established structure and formatting conventions.
+- **Be Specific:** Provide concrete examples and actionable instructions rather than general principles
+- **Keep Concise:** Focus rules on a specific topic or task. Avoid overly long or complex rules
+- **Use Clear Structure:** Employ Markdown headings and lists to organize information logically
+- **Consider Context:** Write rules with the assumption that the AI might have limited context
+- **Include Version Information:** Add version, lastUpdated, and compatibleWith fields to all rule files
+- **Leverage `globs`:** Use `globs` effectively to ensure rules are automatically considered when relevant files are open
+- **Refine `description`:** Write clear, concise descriptions to aid semantic activation
+- **Test and Iterate:** Review how the AI uses your rules and refine them based on its behavior
+- **Maintain Consistency:** Follow the established structure and formatting conventions
 
-## Global Rules vs. Project Rules
+## Cross-Platform Usage
 
-- **Project Rules** (used here in `.cursor/rules/`) are specific to this project, version-controlled, and offer fine-grained control via `globs` and semantic descriptions.
-- **Global Rules** are configured in `Cursor Settings > General > Rules for AI` and apply to *all* projects. They are useful for universal preferences (e.g., desired output language, response length).
+DevRulesPlus is designed to work across multiple AI coding assistant platforms:
 
-## Deprecated `.cursorrules`
+- **IDE-Specific Integration:** The setup wizard configures the appropriate directory structure for your chosen IDE or AI tool
+- **AI Assistant Rules:** Different AI assistants may use different rule loading mechanisms, which the DevRulesPlus setup process handles automatically
+- **Memory Management:** The `AI-Session-Handoff.mdc` task helps maintain continuity across development sessions regardless of the AI platform being used
 
-Cursor previously used a single `.cursorrules` file in the project root. While potentially still supported for backward compatibility, this project uses the more flexible `.cursor/rules/` directory system. Migration is recommended.
+## Specialized Components
+
+- **Memory Management System:** Guidelines for capturing project context, decisions, and milestones
+- **AI Session Handoff:** Procedures for maintaining continuity across development sessions
+- **Version Control:** Tracking system for rule updates and dependencies between rule files
 
 ---
-*See `README.md` for installation and update instructions for the DevRules project.*
+*See `README.md` for installation and update instructions for the DevRulesPlus project and `CHANGELOG.md` for detailed version history.*
