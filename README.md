@@ -88,8 +88,8 @@ The rules are organized in `.ai/rules/` with a comprehensive and extensible stru
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/yourusername/AIDevRules.git
-cd AIDevRules
+git clone https://github.com/idominikosgr/DevRulesPlus.git
+cd DevRulesPlus
 ```
 
 2. Run the setup wizard:
@@ -114,7 +114,7 @@ The wizard will automatically create the appropriate directory structure and cop
 1. Clone this repository into your project:
 
 ```bash
-git clone https://github.com/yourusername/AIDevRules.git .cursor
+git clone https://github.com/idominikosgr/DevRulesPlus.git .cursor
 ```
 
 2. Customize the project-specific files:
@@ -194,7 +194,7 @@ The rule files use a consistent Markdown format that's easy to customize for you
 To update the standard `tasks/`, `languages/`, `technologies/` rules and the core `00-core-agent.mdc`, while preserving your customized `01-project-context.mdc` and `02-common-errors.mdc`:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/TheSethRose/DevRules/main/install.sh | sh -s -- --upgrade
+curl -fsSL https://raw.githubusercontent.com/idominikosgr/DevRulesPlus/main/install.sh | sh -s -- --upgrade
 ```
 *Note: The upgrade process preserves `03-mcp-configuration.mdc`. If new standard MCP servers are added to DevRules in the future, you may need to manually update your `03-mcp-configuration.mdc` or ask the AI to regenerate it.*
 
@@ -273,6 +273,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Origin & Attribution
 
 DevRulesPlus is an enhanced version of the original [DevRules](https://github.com/TheSethRose/DevRules) project created by Seth Rose. While substantially expanded with new features including multi-IDE support, memory management, and 51 task rule files, this project builds upon the original DevRules foundation and maintains the same MIT license terms.
+
+**Official Repository:** [https://github.com/idominikosgr/DevRulesPlus](https://github.com/idominikosgr/DevRulesPlus)
 
 We gratefully acknowledge Seth Rose's original work which provided the conceptual framework for this project.
 

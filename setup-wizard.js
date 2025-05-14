@@ -1,5 +1,15 @@
 #!/usr/bin/env node
 
+/**
+ * DevRulesPlus Setup Wizard
+ * -----------------------
+ * This interactive script helps configure DevRulesPlus for your development project.
+ * It creates a custom rule structure based on your selected IDE/tools, frameworks, 
+ * languages, and technologies.
+ * 
+ * Repository: https://github.com/idominikosgr/DevRulesPlus
+ */
+
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
@@ -23,43 +33,81 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-// IDE/Tool options with their corresponding directory structures
+/**
+ * Available IDE/Tool options with their corresponding directory structures
+ * Each IDE/tool will store rules in a specific directory structure that works best with its integration
+ */
 const ideTools = [
-  { name: 'Generic AI Tool (recommended)', folder: '.ai/rules' },
-  { name: 'Cursor AI', folder: '.cursor/rules' },
-  { name: 'Windsurf', folder: '.windsurf/rules' },
-  { name: 'GitHub Copilot', folder: '.github/copilot/rules' },
-  { name: 'VS Code', folder: '.vscode/ai-rules' },
-  { name: 'Claude Code Integration', folder: '.claude/rules' },
-  { name: 'OpenAI Codex', folder: '.openai/rules' }
+  { 
+    name: 'Generic AI Tool (recommended)', 
+    folder: '.ai/rules',
+    description: 'Works with most AI coding assistants and is the DevRulesPlus standard.'
+  },
+  { 
+    name: 'Cursor AI', 
+    folder: '.cursor/rules',
+    description: 'Optimized for Cursor AI Editor with automatic rule detection.'
+  },
+  { 
+    name: 'Windsurf', 
+    folder: '.windsurf/rules',
+    description: 'Specifically formatted for Windsurf AI integration.'
+  },
+  { 
+    name: 'GitHub Copilot', 
+    folder: '.github/copilot/rules',
+    description: 'Structure for GitHub Copilot integration.'
+  },
+  { 
+    name: 'VS Code', 
+    folder: '.vscode/ai-rules',
+    description: 'Works with VS Code AI extensions.'
+  },
+  { 
+    name: 'Claude Code Integration', 
+    folder: '.claude/rules',
+    description: 'Optimized for Claude integration.'
+  },
+  { 
+    name: 'OpenAI Codex', 
+    folder: '.openai/rules',
+    description: 'Structure for OpenAI Codex integration.'
+  }
 ];
 
-// Configuration options
+/**
+ * Available frameworks with their corresponding rule files
+ * Each framework has specific best practices and patterns
+ */
 const frameworks = [
-  { name: 'React', folder: 'React19' },
-  { name: 'Next.js', folder: 'NextJS15' },
-  { name: 'Vue', folder: 'Vue3' },
-  { name: 'Svelte', folder: 'Svelte5' },
-  { name: 'Angular', folder: 'Angular' },
-  { name: 'Express', folder: 'NodeExpress' },
-  { name: 'FastAPI', folder: 'FastAPI' },
-  { name: 'Flutter', folder: 'Flutter' },
-  { name: 'SwiftUI', folder: 'SwiftUI' },
-  { name: 'PySide', folder: 'PySideUI' },
-  { name: 'Tauri', folder: 'Tauri' },
-  { name: 'None/Other', folder: null }
+  { name: 'React', folder: 'React19', description: 'Modern React with hooks and functional components' },
+  { name: 'Next.js', folder: 'NextJS15', description: 'Next.js with App Router and React Server Components' },
+  { name: 'Vue', folder: 'Vue3', description: 'Vue 3 with Composition API' },
+  { name: 'Svelte', folder: 'Svelte5', description: 'Svelte with runes and component patterns' },
+  { name: 'Angular', folder: 'Angular', description: 'Modern Angular with best practices' },
+  { name: 'Express', folder: 'NodeExpress', description: 'Node.js Express with structured routing' },
+  { name: 'FastAPI', folder: 'FastAPI', description: 'Python FastAPI with type hints' },
+  { name: 'Flutter', folder: 'Flutter', description: 'Flutter for cross-platform app development' },
+  { name: 'SwiftUI', folder: 'SwiftUI', description: 'Modern SwiftUI with NavigationStack patterns' },
+  { name: 'PySide', folder: 'PySideUI', description: 'Python UI development with PySide' },
+  { name: 'Tauri', folder: 'Tauri', description: 'Lightweight desktop apps with web technologies' },
+  { name: 'None/Other', folder: null, description: 'Skip framework-specific rules' }
 ];
 
+/**
+ * Available programming languages with their corresponding rule files
+ * Each language has specific best practices and patterns
+ */
 const languages = [
-  { name: 'TypeScript', folder: 'TypeScript-Modern' },
-  { name: 'JavaScript', folder: null },
-  { name: 'Python', folder: 'Python3' },
-  { name: 'Swift', folder: 'Swift' },
-  { name: 'Kotlin', folder: 'Kotlin' },
-  { name: 'C++', folder: 'CPP20' },
-  { name: 'Go', folder: null },
-  { name: 'Rust', folder: null },
-  { name: 'Other', folder: null }
+  { name: 'TypeScript', folder: 'TypeScript-Modern', description: 'Modern TypeScript with functional programming patterns' },
+  { name: 'JavaScript', folder: null, description: 'JavaScript with modern ES features' },
+  { name: 'Python', folder: 'Python3', description: 'Python 3 with typing and modern patterns' },
+  { name: 'Swift', folder: 'Swift', description: 'Swift 5.9/6.0 with macros and concurrency' },
+  { name: 'Kotlin', folder: 'Kotlin', description: 'Kotlin for Android and server-side' },
+  { name: 'C++', folder: 'CPP20', description: 'Modern C++ with C++20 features' },
+  { name: 'Go', folder: null, description: 'Go with idiomatic patterns' },
+  { name: 'Rust', folder: null, description: 'Rust with memory safety patterns' },
+  { name: 'Other', folder: null, description: 'Skip language-specific rules' }
 ];
 
 const stacks = [
@@ -115,34 +163,81 @@ function askQuestion(question) {
   });
 }
 
-// Function to select an IDE/Tool
+/**
+ * Presents IDE/Tool options to the user and captures their selection
+ * This will determine the directory structure where rules will be installed
+ */
 async function selectIDETool() {
-  console.log(`\n${colors.bright}${colors.blue}Select your IDE or AI Tool:${colors.reset}`);
+  console.log(`\n${colors.bright}${colors.cyan}Step 1: Select your IDE or AI Tool${colors.reset}`);
+  console.log('This determines where the rules will be stored and how they integrate with your AI assistant.');
   
+  // Display options with descriptions
   ideTools.forEach((tool, index) => {
-    console.log(`${index + 1}. ${tool.name}`);
+    console.log(`${colors.bright}${index + 1}.${colors.reset} ${colors.bright}${tool.name}${colors.reset}`);
+    console.log(`   ${tool.description}`);
+    console.log(`   Directory: ${tool.folder}`); 
+    console.log('');
   });
   
-  const answer = await askQuestion(`\nEnter number (1-${ideTools.length}): `);
-  const index = parseInt(answer) - 1;
-  
-  if (index >= 0 && index < ideTools.length) {
-    userSelections.ideTool = ideTools[index];
-    console.log(`${colors.green}Selected: ${userSelections.ideTool.name}${colors.reset}`);
-  } else {
-    console.log(`${colors.yellow}Invalid selection. Using default.${colors.reset}`);
-    userSelections.ideTool = ideTools[0]; // Default to first option
-  }
+  return new Promise((resolve) => {
+    rl.question(`${colors.yellow}?${colors.reset} Select an option (1-${ideTools.length}) [1]: `, (answer) => {
+      // Default to option 1 if empty
+      const selection = answer.trim() || '1';
+      const index = parseInt(selection) - 1;
+      
+      if (index >= 0 && index < ideTools.length) {
+        const selectedTool = ideTools[index];
+        userSelections.ideTool = selectedTool;
+        console.log(`${colors.green}✓${colors.reset} Selected: ${selectedTool.name}`);
+        console.log(`   Rules will be installed in the ${colors.cyan}${selectedTool.folder}${colors.reset} directory.`);
+        resolve();
+      } else {
+        console.log(`${colors.yellow}⚠${colors.reset} Invalid selection. Using default option.`);
+        userSelections.ideTool = ideTools[0]; // Default to first option
+        console.log(`${colors.green}✓${colors.reset} Selected: ${userSelections.ideTool.name}`);
+        console.log(`   Rules will be installed in the ${colors.cyan}${userSelections.ideTool.folder}${colors.reset} directory.`);
+        resolve();
+      }
+    });
+  });
 }
 
-// Function to select a framework
+/**
+ * Presents framework options to the user and captures their selection
+ * This will determine the specific rules and best practices for the project
+ */
 async function selectFramework() {
-  console.log(`\n${colors.bright}${colors.blue}Select your primary framework:${colors.reset}`);
+  console.log(`\n${colors.bright}${colors.blue}Step 2: Select your primary framework${colors.reset}`);
+  console.log('This will determine the specific rules and best practices for your project.');
   
+  // Display options with descriptions
   frameworks.forEach((framework, index) => {
-    console.log(`${index + 1}. ${framework.name}`);
+    console.log(`${colors.bright}${index + 1}.${colors.reset} ${colors.bright}${framework.name}${colors.reset}`);
+    console.log(`   ${framework.description}`);
+    console.log('');
   });
   
+  return new Promise((resolve) => {
+    rl.question(`${colors.yellow}?${colors.reset} Select an option (1-${frameworks.length}) [${frameworks.length}]: `, (answer) => {
+      // Default to last option if empty
+      const selection = answer.trim() || `${frameworks.length}`;
+      const index = parseInt(selection) - 1;
+      
+      if (index >= 0 && index < frameworks.length) {
+        const selectedFramework = frameworks[index];
+        userSelections.framework = selectedFramework;
+        console.log(`${colors.green}✓${colors.reset} Selected: ${selectedFramework.name}`);
+        console.log(`   Rules for ${selectedFramework.name} will be installed.`);
+        resolve();
+      } else {
+        console.log(`${colors.yellow}⚠${colors.reset} Invalid selection. Using default option.`);
+        userSelections.framework = frameworks[frameworks.length - 1]; // Default to last option
+        console.log(`${colors.green}✓${colors.reset} Selected: ${userSelections.framework.name}`);
+        console.log(`   Rules for ${userSelections.framework.name} will be installed.`);
+        resolve();
+      }
+    });
+  });
   const answer = await askQuestion(`\nEnter number (1-${frameworks.length}): `);
   const index = parseInt(answer) - 1;
   
@@ -301,7 +396,7 @@ async function copyRuleFiles() {
   // Create target directory based on selected IDE/Tool
   const targetDir = path.join(userSelections.projectPath, userSelections.ideTool.folder);
   
-  console.log(`\n${colors.bright}${colors.blue}Setting up AIDevRules in ${targetDir}...${colors.reset}`);
+  console.log(`\n${colors.bright}${colors.blue}Setting up DevRulesPlus in ${targetDir}...${colors.reset}`);
   
   // Create directory if it doesn't exist
   if (!fs.existsSync(targetDir)) {
@@ -398,7 +493,7 @@ async function copyRuleFiles() {
   await customizeProjectContext();
   
   console.log(`\n${colors.bright}${colors.green}Setup complete!${colors.reset}`);
-  console.log(`\nAIDevRules has been configured for your project at: ${userSelections.projectPath}`);
+  console.log(`\nDevRulesPlus has been configured for your project at: ${userSelections.projectPath}`);
   console.log(`\nTo use these rules with your selected AI tool, open your project in ${userSelections.ideTool.name}.`);
   
   rl.close();
@@ -427,9 +522,14 @@ async function customizeProjectContext() {
 
 // Main function to run the setup wizard
 async function runSetupWizard() {
-  console.log(`\n${colors.bright}${colors.magenta}=== AIDevRules Setup Wizard ===${colors.reset}\n`);
-  console.log(`This wizard will help you configure AIDevRules for your project.`);
-  console.log(`You'll select your IDE, frameworks, languages, and more.`);
+  console.log(`\n${colors.bright}${colors.magenta}=== DevRulesPlus Setup Wizard ===${colors.reset}\n`);
+  console.log(`${colors.bright}Welcome to the interactive setup for DevRulesPlus!${colors.reset}`);
+  console.log(`This wizard will guide you through configuring AI development rules for your project.`);
+  console.log(`\nYou'll select your:`);
+  console.log(` • AI assistant or IDE integration`);
+  console.log(` • Primary framework and programming language`);
+  console.log(` • Technology stack and additional tools`);
+  console.log(`\nThis will create a customized rule structure optimized for your development environment.`);
   
   // Get selections from user
   await selectIDETool();
